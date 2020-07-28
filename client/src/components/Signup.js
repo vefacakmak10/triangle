@@ -57,7 +57,7 @@ class Signup extends React.Component {
     };
 
     axios({
-      url:'',
+      url:'http://localhost:8080/api/user',
       method:'POST',
       data:payload
     })
@@ -70,8 +70,6 @@ class Signup extends React.Component {
   };
 
     render() {
-
-      console.log('State:' , this.state);
         return (
             <div>
                 <Button style={{ background: "#5B2121", borderColor: "#5B2121"}} type="primary" onClick={this.showModal} icon={<UserOutlined />}>
@@ -82,6 +80,7 @@ class Signup extends React.Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          onSubmit={this.submit}
         >
         <Form onSubmit={this.submit}>
 
@@ -105,7 +104,7 @@ class Signup extends React.Component {
                     <Input type="password" name="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                <button type="submit" className="btn btn-primary btn-block" onSubmit={this.submit}>Sign Up</button>
             </Form>
         </Modal>
             </div>
