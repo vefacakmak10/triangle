@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Form, Input } from 'antd';
 import {UserOutlined} from '@ant-design/icons';
+import axios from 'axios';
 
 
 
@@ -16,7 +17,13 @@ class Signup extends React.Component {
     };
 
   handleChange = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
 
+    this.setState({
+    [name]:value
+    });
   };
 
   showModal = () => {
@@ -39,7 +46,32 @@ class Signup extends React.Component {
     });
   };
 
+  submit = (event) => {
+    event.preventDefault();
+
+    const payload = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    axios({
+      url:'',
+      method:'POST',
+      data:payload
+    })
+    .then(() =>{
+      console.log('Veri kaydedildi', )
+    })
+    .catch(() =>{
+      console.log('Hata' )
+    });;
+  };
+
     render() {
+
+      console.log('State:' , this.state);
         return (
             <div>
                 <Button style={{ background: "#5B2121", borderColor: "#5B2121"}} type="primary" onClick={this.showModal} icon={<UserOutlined />}>
@@ -51,26 +83,26 @@ class Signup extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-        <Form>
+        <Form onSubmit={this.submit}>
 
                 <div className="form-group">
-                    <label>First name</label>
-                    <Input type="text" className="form-control" placeholder="First name" value={this.state.firstname} />
+                    <label>Isim</label>
+                    <Input type="text" name="firstname" className="form-control" placeholder="First name" value={this.state.firstname} onChange={this.handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Last name</label>
-                    <Input type="text" className="form-control" placeholder="Last name" value={this.state.lastname} />
+                    <label>Soyisim</label>
+                    <Input type="text" name="lastname" className="form-control" placeholder="Last name" value={this.state.lastname} onChange={this.handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Email address</label>
-                    <Input type="email" className="form-control" placeholder="Enter email" value={this.state.email} />
+                    <label>Email</label>
+                    <Input type="email" name="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Password</label>
-                    <Input type="password" className="form-control" placeholder="Enter password" value={this.state.password} />
+                    <label>Sifre</label>
+                    <Input type="password" name="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>

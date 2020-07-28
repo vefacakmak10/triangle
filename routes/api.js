@@ -1,6 +1,6 @@
 const express = require('express');
 
-const BlogPost = require('../models/blogPost')
+const BlogPost = require('../models/blogPost');
 
 const router = express.Router();
 
@@ -22,6 +22,7 @@ router.get('/api/name', (req, res) => {
     };
     res.json(data);
 });
+
 
 
 module.exports = router;
