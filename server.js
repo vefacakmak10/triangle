@@ -20,11 +20,16 @@ mongoose.connect(MONGODB_URI || 'mongodb://localhost/coffee_code', {
 mongoose.connection.on('connected', () =>{
     console.log('Mongoose baglandi!!!');
 });
+app.use(express.json());
+app.use(express.urlencoded({ extended: false })); 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
 
 
 app.use(cors());
 app.use(morgan('tiny'));
-app.use('/', routes);
+app.use('/api', routes);
 
 
 

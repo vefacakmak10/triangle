@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-router.get('/api', (req, res) => {
+router.get('/', (req, res) => {
 
     BlogPost.find({     })
     .then((data) => {
@@ -17,19 +17,18 @@ router.get('/api', (req, res) => {
     });
 });
 
-router.post('/api/user', (req, res) => {
+router.post('/user', (req, res) => {
     const data = req.body;
     console.log(data)
 
-    const userSave = new User(data);
+    const newUser = new User(data);
     
 
-    userSave.save((error) => {
+    newUser.save((error) => {
         if (error) {
             res.status(500).json({ msg: 'Sorry, internal server errors' });
             return;
         }
-        // BlogPost
         return res.json({
             msg: 'user  gönderildi!!!!!!'
         });

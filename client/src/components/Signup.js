@@ -1,29 +1,29 @@
 import React from 'react';
-import { Modal, Button, Form, Input } from 'antd';
+import { Modal, Button, Input } from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import axios from 'axios';
+
+const initialState={
+  firstname:"",
+  lastname:"",
+  email:"",
+  password:"",
+  visible:false ,
+
+
+};
 
 
 
 
 class Signup extends React.Component {
 
-    state = { 
-      visible: false,
-      firstname:'',
-      lastname:'',
-      email:'',
-      password:''
-    };
+    state = initialState;
 
-  handleChange = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-
-    this.setState({
-    [name]:value
-    });
+    handleChange= (e) => {
+      this.setState({
+         [e.target.name] : e.target.value ,
+      })
   };
 
   showModal = () => {
@@ -46,27 +46,25 @@ class Signup extends React.Component {
     });
   };
 
-  submit = (event) => {
-    event.preventDefault();
-
-    const payload = {
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      email: this.state.email,
-      password: this.state.password
-    };
-
+  handleSubmit =(e) => {
+    e.preventDefault();
+    
+    console.log(this.state);
+    this.setState(initialState); 
+  
     axios({
       url:'http://localhost:8080/api/user',
       method:'POST',
-      data:payload
+      data:this.state,
     })
     .then(() =>{
       console.log('Veri kaydedildi', )
     })
     .catch(() =>{
       console.log('Hata' )
-    });;
+    });
+  
+  
   };
 
     render() {
@@ -82,9 +80,9 @@ class Signup extends React.Component {
           onCancel={this.handleCancel}
           onSubmit={this.submit}
         >
-        <Form onSubmit={this.submit}>
+        <form onSubmit={this.handleSubmit}>
 
-                <div className="form-group">
+                <div className="form-group" >
                     <label>Isim</label>
                     <Input type="text" name="firstname" className="form-control" placeholder="First name" value={this.state.firstname} onChange={this.handleChange} />
                 </div>
@@ -104,8 +102,8 @@ class Signup extends React.Component {
                     <Input type="password" name="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onSubmit={this.submit}>Sign Up</button>
-            </Form>
+                <button type="submit" className="btn btn-primary btn-block" onSubmit={this.handleSubmit}>Sign Up</button>
+            </form>
         </Modal>
             </div>
         )
