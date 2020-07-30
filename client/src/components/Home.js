@@ -6,9 +6,10 @@ import './Home.css';
 class Home extends React.Component {
     render() {
         return (
-            <Carousel autoplay>
+            <Carousel width="1280px" autoplay>
             <div>
             <img
+            width="1280" height="700"
       className="d-block w-100"
       src={logo2}
       alt="First slide"
@@ -16,6 +17,7 @@ class Home extends React.Component {
             </div>
             <div>
             <img
+            width="1280" height="700"
       className="d-block w-100"
       src={logo2}
       alt="First slide"
@@ -23,6 +25,7 @@ class Home extends React.Component {
             </div>
             <div>
             <img
+            width="1280" height="700"
       className="d-block w-100"
       src={logo2}
       alt="First slide"
@@ -30,6 +33,7 @@ class Home extends React.Component {
             </div>
             <div>
             <img
+            width="1280" height="700"
       className="d-block w-100"
       src={logo2}
       alt="First slide"

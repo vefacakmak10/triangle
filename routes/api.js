@@ -35,5 +35,17 @@ router.post('/user', (req, res) => {
     });
 });
 
+router.get('/user', (req, res) => {
+
+    User.find({     })
+    .then((data) => {
+        console.log('Data', data);
+        res.json(data);
+    })
+    .catch((error) => {
+        console.log('error', error);
+    });
+});
+
 
 module.exports = router;

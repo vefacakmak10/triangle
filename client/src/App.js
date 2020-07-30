@@ -4,7 +4,6 @@ import Coffees from './components/Coffees.js';
 import Blog from './components/Blog.js';
 import AboutUs from './components/AboutUs.js';
 import Login from './components/Login.js';
-import Deneme from './components/deneme.js';
 import Signup from './components/Signup.js';
 import {Route, NavLink, HashRouter} from 'react-router-dom';
 import {Menu} from 'antd';
@@ -21,7 +20,6 @@ function App() {
             <Menu.Item key="2"><NavLink to="/component/Coffees">Urunler</NavLink></Menu.Item>
             <Menu.Item key="3"><NavLink to="/component/Blog">Blog</NavLink></Menu.Item>
             <Menu.Item key="4"><NavLink to="/component/AboutUs">Hakkimizda</NavLink></Menu.Item>
-            <Menu.Item key="7"><NavLink to="/component/Deneme">Deneme</NavLink></Menu.Item>
             <Menu.Item key="5"><Login/></Menu.Item>
             <Menu.Item key="6"><Signup/></Menu.Item>
             </Menu>
@@ -31,7 +29,6 @@ function App() {
             <Route path="/component/Coffees" component={Coffees}/>
             <Route path="/component/Blog" component={Blog}/>
             <Route path="/component/AboutUs" component={AboutUs}/>
-            <Route path="/component/Deneme" component={Deneme}/>
           </div>
           </ul>
         </div>

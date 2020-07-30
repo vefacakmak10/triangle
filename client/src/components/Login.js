@@ -6,6 +6,7 @@ const initialState={
   email:"",
   password:"",
   visible:false ,
+  users: []
 
 
 };
@@ -16,37 +17,29 @@ class Login extends React.Component {
 
     state = initialState ; 
 
+
+  componentDidMount = () => {
+    this.getUser();
+  };
+
   showModal = () => {
     this.setState({
       visible: true,
     });
   };
-  handleSubmit =(e) => {
-    e.preventDefault();
-    
-    console.log(this.state);
-    this.setState(initialState); 
   
-    axios({
-      url:'http://localhost:8080/api/user',
-      method:'POST',
-      data:this.state,
+  getUser = () => {
+    axios.get('http://localhost:8080/api/user/')
+    .then((response) => {
+      const data = response.data;
+      this.setState ({users:data});
+      console.log('kullanici geldi');
+      console.log(this.state.users);
     })
-    .then(() =>{
-      console.log('Veri kaydedildi', )
-    })
-    .catch(() =>{
-      console.log('Hata' )
+    .catch(() => {
+      alert('hata var');
     });
-  
-  
-  };
-
-    handleChange= (e) => {
-      this.setState({
-         [e.target.name] : e.target.value ,
-      })
-  };
+  }
 
   handleOk = e => {
     console.log(e);
