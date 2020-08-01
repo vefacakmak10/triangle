@@ -6,7 +6,9 @@ const initialState={
   email:"",
   password:"",
   visible:false ,
-  users: []
+  users: [],
+  emailDB:[],
+  passwordDB:[],
 
 
 };
@@ -31,10 +33,17 @@ class Login extends React.Component {
   getUser = () => {
     axios.get('http://localhost:8080/api/user/')
     .then((response) => {
+
       const data = response.data;
+      
+      
+
       this.setState ({users:data});
       console.log('kullanici geldi');
       console.log(this.state.users);
+
+      console.log(this.state.users.map(users => users.email));
+      console.log(this.state.users.map(users => users.password));
     })
     .catch(() => {
       alert('hata var');
@@ -55,6 +64,45 @@ class Login extends React.Component {
       
     });
   };
+
+  handleChange= (e) => {
+    this.setState({
+       [e.target.name] : e.target.value ,
+    })
+};
+
+validate = () => {
+        
+  if(!this.state.email || !this.state.users.map(users => users.email) || !this.state.password || !this.state.users.map(users => users.password)){
+      console.log("basarısız")
+  }
+  else {
+  if(this.state.email === this.state.users.map(users => users.email) && this.state.password === this.state.users.map(users => users.password)) {
+      console.log("giris basarılı") ;
+      return true 
+  
+  }
+  else{
+      console.log("basarısız ula")
+      return false
+  }
+}
+  
+};
+handleSubmit =(e) => {
+  e.preventDefault();
+  
+  const isValid = this.validate();
+  if (isValid)
+  {
+  
+   
+  console.log(this.state);
+  this.setState(initialState);  }
+  
+};
+
+
 
     render() {
         return (
@@ -77,17 +125,18 @@ class Login extends React.Component {
 
                 <div className="form-group">
                     <label>Password</label>
-                    <Input type="password" name="password" value={this.state.password} onChange={ this.handleChange } placeholder="Enter password" />
+                    <Input type="password" name="password" onChange={ this.handleChange } value={this.state.password}  placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
                     <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                        <label className="custom-control-label" htmlFor="customCheck1">Beni hatirla</label>
                     </div>
                 </div>
-                <button type="submit">Kayıt</button>
+                <button type="submit">Giris yap</button>
             </form>
+            
         </Modal>
             </div>
         )

@@ -1,0 +1,12 @@
+displayUserLogin = (users) => {
+  if(!users.length) return null;
+
+  return users.map((users, index) => (
+  <div key={index}>
+  <h3>{users.email}</h3>
+  <p>{users.password}</p>
+
+  </div>));
+};
+
+<div>{this.getUser}</div>
