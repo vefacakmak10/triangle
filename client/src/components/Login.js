@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Modal, Button, Input } from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom'
-
 const initialState={
   email:"",
   password:"",
@@ -104,9 +103,12 @@ handleSubmit =(e) => {
   
   const isValid = this.validate();
   if (isValid)
-  { 
-    
-    this.setState({loggedInStatus:"logged_in"})
+  {
+    this.setState({
+      [loggedInStatus] :"logged_in",
+      
+    });
+  
    
    
   console.log(this.state);
