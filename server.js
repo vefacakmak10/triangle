@@ -10,9 +10,8 @@ const PORT = process.env.PORT || 8080;
 
 const routes = require('./routes/api');
 
-const MONGODB_URI = 'mongodb+srv://erayaydin:5e78102ass@coffeecode.85b2p.mongodb.net/<dbname>?retryWrites=true&w=majority'
-
-mongoose.connect(MONGODB_URI || 'mongodb://localhost/coffee_code', {
+const MONGODB_URI='mongodb+srv://admin:trabsuadmin123@trabsudb.ubr3i.mongodb.net/<MovieDB>?retryWrites=true&w=majority' ;
+mongoose.connect(MONGODB_URI || 'mongodb://localhost/trabsu', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

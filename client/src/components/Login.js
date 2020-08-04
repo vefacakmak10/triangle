@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Modal, Button, Input } from 'antd';
 import {UserOutlined} from '@ant-design/icons';
+import {Link} from 'react-router-dom'
 const initialState={
   email:"",
   password:"",
@@ -9,6 +10,7 @@ const initialState={
   users: [],
   emailDB:[],
   passwordDB:[],
+  loggedInStatus: "",
 
 
 };
@@ -34,21 +36,23 @@ class Login extends React.Component {
     axios.get('http://localhost:8080/api/user/')
     .then((response) => {
 
-      const data = response.data;
-      
-      
-
-      this.setState ({users:data});
-      console.log('kullanici geldi');
-      console.log(this.state.users);
-
-      console.log(this.state.users.map(users => users.email));
-      console.log(this.state.users.map(users => users.password));
+            let emailDB;
+            let passwordDB;
+            const data = response.data;
+            emailDB = data.map(data => data.email );
+            passwordDB = data.map(data => data.password);
+            this.setState({emailDB}) ;
+            this.setState({passwordDB}) ;
+            console.log('veriler alındı!!');
+            console.log(emailDB);    
+            console.log(passwordDB);
     })
     .catch(() => {
       alert('hata var');
     });
-  }
+  };
+ 
+  
 
   handleOk = e => {
     console.log(e);
@@ -73,17 +77,22 @@ class Login extends React.Component {
 
 validate = () => {
         
-  if(!this.state.email || !this.state.users.map(users => users.email) || !this.state.password || !this.state.users.map(users => users.password)){
-      console.log("basarısız")
+  if(!this.state.email || !this.state.emailDB || !this.state.password || !this.state.passwordDB || this.state.loggedInStatus=== "LOGGED_IN" ){
+      console.log("basarısız");
+      
+      
   }
-  else {
-  if(this.state.email === this.state.users.map(users => users.email) && this.state.password === this.state.users.map(users => users.password)) {
+  else { 
+    if(this.state.emailDB.includes(this.state.email) && this.state.passwordDB.includes(this.state.password)) {
       console.log("giris basarılı") ;
+      
       return true 
   
   }
   else{
-      console.log("basarısız ula")
+      console.log("basarısız ula") ;
+     
+    
       return false
   }
 }
@@ -95,12 +104,30 @@ handleSubmit =(e) => {
   const isValid = this.validate();
   if (isValid)
   {
+    this.setState({
+      loggedInStatus :"logged_in",
+      
+    });
   
+   
    
   console.log(this.state);
   this.setState(initialState);  }
   
 };
+LoginControl = () => {
+  axios({
+    url:'http://localhost:8080/api/loggedin',
+    method:'POST',
+    data:this.state,
+  })
+  .then(() =>{
+    console.log('Veri kaydedildi', )
+  })
+  .catch(() =>{
+    console.log('Hata' )
+  });
+}
 
 
 
@@ -134,7 +161,9 @@ handleSubmit =(e) => {
                         <label className="custom-control-label" htmlFor="customCheck1">Beni hatirla</label>
                     </div>
                 </div>
-                <button type="submit">Giris yap</button>
+                
+                <button onClick={this.LoginControl} type="submit">Giris yap</button>
+                
             </form>
             
         </Modal>
