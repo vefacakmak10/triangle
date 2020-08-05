@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import video  from '../videos/gangs.mp4' 
-import Card from "react-bootstrap/Card";
-import {Button} from 'react-bootstrap'
 import axios from 'axios';
 import joe from '../images/joe.jpg'
 import michelle from '../images/michelle.jpg'

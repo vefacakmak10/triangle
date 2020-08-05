@@ -11,6 +11,8 @@ const initialState={
   emailDB:[],
   passwordDB:[],
   isAuthenticated: false,
+  visibility :'visible' ,  
+  id:"", 
 
 
 };
@@ -31,6 +33,7 @@ class Login extends React.Component {
 
   componentDidMount = () => {
     this.getUser();
+    this.getId();
     
     };
 
@@ -46,14 +49,39 @@ class Login extends React.Component {
 
             let emailDB;
             let passwordDB;
+          
             const data = response.data;
             emailDB = data.map(data => data.email );
             passwordDB = data.map(data => data.password);
+            
             this.setState({emailDB}) ;
             this.setState({passwordDB}) ;
+            
             console.log('veriler alındı!!');
             console.log(emailDB);    
             console.log(passwordDB);
+            
+
+    })
+    .catch(() => {
+      alert('hata var');
+    });
+  };
+
+  getId = () => {
+    axios.get('http://localhost:8080/api/loggedin/')
+    .then((response) => {
+
+           
+            let id ;
+            const data = response.data;
+          
+            id = data.map(data => data._id);
+        
+            this.setState({id}) ;
+            console.log('veriler alındı!!');
+          
+            console.log(id);
 
     })
     .catch(() => {
@@ -134,19 +162,31 @@ isLoggedIn = () => {
 
 
 LoginControl = () => {
+  const payload= {
+     email : this.state.email,
+     password : this.state.password ,
+     isAuthenticated : this.state.isAuthenticated,
+     
+   }
   axios({
-    url:'http://localhost:8080/api/loggedin',
-    method:'POST',
-    data:this.state,
+    url:"http://localhost:8080/api/loggedin/5f297b19a03fc21b1cf391ba" , 
+    method:'PUT',
+    data:payload,
   })
   .then(() =>{
     console.log('Veri kaydedildi', )
+    this.setState({visibility: 'hidden'})
+
+    
  
   })
   .catch(() =>{
     console.log('Hata' )
+    alert("Hosgeldin " +  this.state.email)   ;
   });
 } ;
+
+
 
 
 
@@ -154,7 +194,7 @@ LoginControl = () => {
     render() {
         return (
             <div>
-                <Button style={{ background: "#5B2121", borderColor: "#5B2121"}} type="primary" onClick={this.showModal} icon={<UserOutlined />}>
+                <Button style={{ background: "#5B2121", borderColor: "#5B2121" ,   visibility: this.state.visibility }}  type="primary" onClick={this.showModal} icon={<UserOutlined />}>
           Giris Yap
                 </Button>
         <Modal

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import video  from '../videos/seven.mp4' 
-import Card from "react-bootstrap/Card";
-import {Button} from 'react-bootstrap'
+
 import axios from 'axios';
 const initialState={
     name: "seven",

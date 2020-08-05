@@ -4,7 +4,9 @@ const moviePost = require('../models/moviePost');
 const User = require('../models/user');
 const Loggedin = require('../models/loggedin');
 
+
 const router = express.Router();
+
 
 router.get('/movie', (req, res) => {
 
@@ -56,26 +58,36 @@ router.post('/loggedin', (req, res) => {
     const data = req.body;
     console.log(data)
 
-    const newLoggedin = new Loggedin(data);
+    const newMovie = new Loggedin(data);
     
 
-    newLoggedin.save((error) => {
+    newMovie.save((error) => {
         if (error) {
             res.status(500).json({ msg: 'Sorry, internal server errors' });
             return;
         }
         return res.json({
-            msg: 'user  gönderildi!!!!!!'
+            msg: 'film  gönderildi!!!!!!'
         });
     });
 });
 
-router.get('/loggedin', (req, res) => {
+router.put('/loggedin/:id', function(req, res, next) {
+    Loggedin.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+  });
 
+
+
+router.get('/loggedin', (req, res) => {
+    
     Loggedin.find({     })
     .then((data) => {
         console.log('Data', data);
         res.json(data);
+        
         
     })
     .catch((error) => {
@@ -83,6 +95,23 @@ router.get('/loggedin', (req, res) => {
     });
 });
 
+router.get('/loggedin/:id', (req, res) => {
+    
+    Loggedin.findById(req.params.id)
+    .then((data) => {
+        console.log('Data', data);
+        res.json(data);
+        
+        
+    })
+    .catch((error) => {
+        console.log('error', error);
+    });
+   
+});
+ 
+
+1
 router.get('/user', (req, res) => {
 
     User.find({     })

@@ -10,7 +10,7 @@ const initialState={
     showResults1: false , 
     showResults2:false,}
 
-class Coffees extends React.Component {
+class Movies extends React.Component {
     state= initialState ;
     fieldCagir= (e) => {
         e.preventDefault();
@@ -124,4 +124,4 @@ class Coffees extends React.Component {
     }
 }
 
-export default Coffees;
+export default Movies;

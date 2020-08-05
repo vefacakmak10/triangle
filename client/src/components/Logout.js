@@ -30,7 +30,7 @@ const initialState={
     PostControl = () => {
       axios({
         url:'http://localhost:8080/api/loggedin',
-        method:'POST',
+        method:'PUT',
         data:this.state,
       })
       .then(() =>{
