@@ -16,6 +16,7 @@ import sherlock from './movies/sherlock.js';
 import got from './movies/got.js';
 import piyanist from './movies/piyanist.js';
 import django from './movies/django.js';
+import movieOrder from './components/movieOrder.js';
 
 
 
@@ -30,11 +31,13 @@ function App() {
           <h1>Film Sitesi</h1>
           
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1"><NavLink to="/component/Home">Anasayfa</NavLink></Menu.Item>
+            <Menu.Item key="1"><NavLink to="/component/movieOrder">Anasayfa</NavLink></Menu.Item>
             <Menu.Item key="2"><NavLink to="/component/Movies">Filmler</NavLink></Menu.Item>
             <Menu.Item key="3"><NavLink to="/component/TvShows">Diziler</NavLink></Menu.Item>
             <Menu.Item key="4"><NavLink to="/component/AboutUs">Hakkimizda</NavLink></Menu.Item>
             <Menu.Item key="8"><NavLink to="/component/UploadMovie">Movie</NavLink></Menu.Item>
+           
+
             <Menu.Item key="5"><Login/></Menu.Item>
             <Menu.Item key="6"><Signup/></Menu.Item>
             <Menu.Item key="7"><Logout/></Menu.Item>
@@ -54,6 +57,8 @@ function App() {
             <Route path="/movies/sherlock" component={sherlock}/>
             <Route path="/movies/piyanist" component={piyanist}/>
             <Route path="/component/UploadMovie" component={UploadMovie}/>
+            <Route path="/component/movieOrder" component={movieOrder}/>
+
 
           </div>
           </ul>

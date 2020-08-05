@@ -78,6 +78,12 @@ router.put('/loggedin/:id', function(req, res, next) {
       res.json(post);
     });
   });
+router.put('/movie/:id', function(req, res, next) {
+    moviePost.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+  });
 
 
 
@@ -98,6 +104,20 @@ router.get('/loggedin', (req, res) => {
 router.get('/loggedin/:id', (req, res) => {
     
     Loggedin.findById(req.params.id)
+    .then((data) => {
+        console.log('Data', data);
+        res.json(data);
+        
+        
+    })
+    .catch((error) => {
+        console.log('error', error);
+    });
+   
+});
+router.get('/movie/:id', (req, res) => {
+    
+    moviePost.findById(req.params.id)
     .then((data) => {
         console.log('Data', data);
         res.json(data);

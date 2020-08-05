@@ -30,6 +30,10 @@ class Signup extends React.Component {
     this.setState({
       visible: true,
     });
+    
+  };
+  refreshPage = () => {
+    window.location.reload(false);
   };
 
   handleOk = e => {
@@ -102,7 +106,7 @@ class Signup extends React.Component {
                     <Input type="password" name="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onSubmit={this.handleSubmit}>Sign Up</button>
+                <button type="submit" className="btn btn-primary btn-block" onSubmit={this.handleSubmit} onClick={this.refreshPage}>Sign Up</button>
             </form>
         </Modal>
             </div>

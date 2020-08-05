@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const MoviePostSchema = new Schema({
    name : String,
    number :  Number ,
-   izlenme: Number,
+   count : Number,
     
 });
 

@@ -3,15 +3,8 @@ import {Carousel} from 'antd';
 import logo2 from './logo2.png';
 import './Home.css';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
-import Card from "react-bootstrap/Card";
-import {Button} from 'react-bootstrap';
-import seven from '../images/seven.jpg' ;
-import django from '../images/django.jpg' ;
-import piyanist from '../images/piyanist.jpg' ;
-import sherlock from '../images/sherlock.jpg' ;
-import gangs from '../images/gangs.jpg' ;
-import got from '../images/got.jpg' ;
+import movieOrder from '../components/movieOrder.js';
+
 
 const initialState={
   nameDB: [],
@@ -53,6 +46,8 @@ class Home extends React.Component {
             console.log('veriler alındı!!');
             console.log(nameDB);    
             console.log(numberDB);
+            console.log(numberDB.sort())
+
     })
     .catch(() => {
       alert('hata var');
@@ -74,20 +69,9 @@ class Home extends React.Component {
             <h3>
             En Son Eklenen 
             </h3>
-            <div>
-            <Card style={{ width: '18rem' }}  >
-            <Card.Img variant="top" src={got }  width="200" height="200" / >
-            <Card.Body>
-                <Card.Title>GAME OF THRONES</Card.Title>
-                <Card.Text>
-                Krallık dediğin savaşsız olur mu? En güçlü krallığı kurup, huzuru sağlamış olsan bile bu gücü elinde nasıl koruyacaksın? Burada yanlış yapana yer yok, affetmek yok. 
-                </Card.Text>
-                <Link to="../movies/got">
-                <Button variant="primary">Diziye git</Button>
-                </Link>
-            </Card.Body>
-            </Card>
-            </div>
+            
+            <movieOrder/>
+            
             </div>
 
 
