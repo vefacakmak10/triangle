@@ -17,6 +17,7 @@ import piyanist from './movies/piyanist.js';
 import django from './movies/django.js';
 
 function App() {
+  
   return (
     <HashRouter>
         <div className="layout">

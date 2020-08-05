@@ -5,7 +5,7 @@ const LoggedinSchema = new Schema({
     
     email: String,
     password: String,
-    loggedInStatus:String,
+    isAuthenticated:Boolean ,
 });
 
 const  Loggedin = mongoose.model(' Loggedin',  LoggedinSchema);

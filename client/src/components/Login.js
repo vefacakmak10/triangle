@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Modal, Button, Input } from 'antd';
 import {UserOutlined} from '@ant-design/icons';
-import {Link} from 'react-router-dom'
+
 const initialState={
   email:"",
   password:"",
@@ -10,7 +10,7 @@ const initialState={
   users: [],
   emailDB:[],
   passwordDB:[],
-  loggedInStatus: "",
+  isAuthenticated: false,
 
 
 };
@@ -18,13 +18,21 @@ const initialState={
 
 
 class Login extends React.Component {
+    
+  
 
-    state = initialState ; 
+    state = initialState;  
+      
+    
+    
+
+    
 
 
   componentDidMount = () => {
     this.getUser();
-  };
+    
+    };
 
   showModal = () => {
     this.setState({
@@ -46,12 +54,14 @@ class Login extends React.Component {
             console.log('veriler alındı!!');
             console.log(emailDB);    
             console.log(passwordDB);
+
     })
     .catch(() => {
       alert('hata var');
     });
   };
  
+
   
 
   handleOk = e => {
@@ -77,14 +87,15 @@ class Login extends React.Component {
 
 validate = () => {
         
-  if(!this.state.email || !this.state.emailDB || !this.state.password || !this.state.passwordDB || this.state.loggedInStatus=== "LOGGED_IN" ){
+  if(!this.state.email || !this.state.emailDB || !this.state.password || !this.state.passwordDB  ){
       console.log("basarısız");
       
       
   }
   else { 
-    if(this.state.emailDB.includes(this.state.email) && this.state.passwordDB.includes(this.state.password)) {
+    if( this.state.emailDB.includes(this.state.email) && this.state.passwordDB.includes(this.state.password)   ) {
       console.log("giris basarılı") ;
+    
       
       return true 
   
@@ -100,21 +111,28 @@ validate = () => {
 };
 handleSubmit =(e) => {
   e.preventDefault();
-  
+
   const isValid = this.validate();
   if (isValid)
   {
     this.setState({
-      [loggedInStatus] :"logged_in",
       
+      initialState,
     });
-  
-   
-   
+
+
+
   console.log(this.state);
   this.setState(initialState);  }
-  
+
 };
+isLoggedIn = () => {
+  this.setState({
+    isAuthenticated:true,
+  });
+};
+
+
 LoginControl = () => {
   axios({
     url:'http://localhost:8080/api/loggedin',
@@ -123,11 +141,13 @@ LoginControl = () => {
   })
   .then(() =>{
     console.log('Veri kaydedildi', )
+ 
   })
   .catch(() =>{
     console.log('Hata' )
   });
-}
+} ;
+
 
 
 
@@ -143,7 +163,7 @@ LoginControl = () => {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-        <form onSubmit={this.handleSubmit} className="col-md-12 ofset-md-2">
+        <form onSubmit={this.handleSubmit}  className="col-md-12 ofset-md-2">
 
                 <div className="form-group">
                     <label>Email address</label>
@@ -162,7 +182,7 @@ LoginControl = () => {
                     </div>
                 </div>
                 
-                <button onClick={this.LoginControl} type="submit">Giris yap</button>
+                <button onClick={this.LoginControl} onMouseOver={this.isLoggedIn}  type="submit">Giris yap</button>
                 
             </form>
             

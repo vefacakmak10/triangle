@@ -5,7 +5,7 @@ import axios from 'axios';
 const initialState={
     email:"",
     password:"",
-    loggedInStatus: "",
+    isAuthenticated: "",
   
   
   };
@@ -14,51 +14,47 @@ const initialState={
  class Logout extends Component {
     state = initialState ; 
 
-    componentDidMount = () => {
-        this.getUser();
-      };
-
+    
     setUser = () => {
+      
         this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
+          isAuthenticated: false,
             email:"",
             password:"",
             
           });
-    } 
-    validate = () => {
-        
-        
-    } 
+          console.log(this.state);  
+          
+          
+    } ;
+    PostControl = () => {
+      axios({
+        url:'http://localhost:8080/api/loggedin',
+        method:'POST',
+        data:this.state,
+      })
+      .then(() =>{
+        console.log('Veri kaydedildi', )
+     
+      })
+      .catch(() =>{
+        console.log('Hata' )
+      });
+    } ;
+    refreshPage = () => {
+      window.location.reload(false);
+    }
+
+   
 
 
-
-      getUser = () => {
-        axios.get('http://localhost:8080/api/loggedin/')
-        .then((response) => {
-    
-                let loggedInStatus;
-                
-                const data = response.data;
-                loggedInStatus = data.map(data => data.loggedInStatus );
-               
-                this.setState({loggedInStatus}) ;
-                
-                console.log('veriler alındı!!');
-                console.log(loggedInStatus);    
-                
-        })
-        .catch(() => {
-          alert('hata var');
-        });
-      }
-      
+     
     
     render() {
         return (
             <div>
            
-            <button onClick={this.setUser}>
+            <button onClick={this.PostControl,this.refreshPage} onMouseOver={this.setUser} >
             Çıkış Yap
             </button>
         
